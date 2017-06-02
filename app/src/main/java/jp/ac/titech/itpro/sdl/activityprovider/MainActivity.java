@@ -37,9 +37,14 @@ public class MainActivity extends AppCompatActivity {
                 request = getString(R.string.request_3_text);
                 break;
         }
-        Intent intent = new Intent(this, PublicActivity.class);
-        intent.putExtra("request", request);
-        startActivityForResult(intent, MYREQCODE);
+//        Intent intent = new Intent(this, PublicActivity.class);
+  //      intent.putExtra("request", request);
+        // Create the text message with a string
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, request);
+        sendIntent.setType("text/plain");
+        startActivityForResult(sendIntent, MYREQCODE);
     }
 
     @Override
@@ -48,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
         switch (reqCode) {
             case MYREQCODE:
                 if (resCode == RESULT_OK) {
-                    String answer = data.getStringExtra("answer");
-                    answerView.setText(answer);
+                    String request = data.getStringExtra("request");
+                    answerView.setText(request);
                 }
         }
     }
